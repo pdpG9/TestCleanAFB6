@@ -18,5 +18,12 @@ class App : Application() {
                 viewModelModule,
                 navigationModule))
         }
+        ///
+//        asd
+//        as
+//                d
+//        as
+//                d
+//        asda
     }
 }
