@@ -3,9 +3,11 @@ package uz.gita.testcleanafb6.data.local.pref
 import android.content.Context
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import dagger.hilt.android.qualifiers.ApplicationContext
 import uz.gita.testcleanafb6.data.models.UserModel
+import javax.inject.Inject
 
-class MySharedPrefImpl(private val context: Context) : MySharedPref {
+class MySharedPrefImpl @Inject constructor(@ApplicationContext context: Context) : MySharedPref {
     private val TOKEN = "TOKEN"
     private val USER_NAME = "USER_NAME"
     private val USER_PASSWORD = "USER_PASSWORD"

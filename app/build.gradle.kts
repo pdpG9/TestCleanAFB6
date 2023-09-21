@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id ("com.google.dagger.hilt.android")
 }
 
 android {
@@ -69,6 +70,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     //room
     val room_version = "2.5.2"
@@ -103,11 +105,12 @@ dependencies {
     // Android
     // Android ViewModel integration
     implementation("cafe.adriel.voyager:voyager-androidx:$voyagerVersion")
-    // Koin integration
-    implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
+    // Hilt integration
+    implementation("cafe.adriel.voyager:voyager-hilt:$voyagerVersion")
 
-    //Koin
-    // Koin for Android
-    implementation ("io.insert-koin:koin-androidx-compose:3.2.0")
+    val hilt_version = ("2.44")
+    // Hilt
+    implementation ("com.google.dagger:hilt-android:$hilt_version")
+    kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
 
 }

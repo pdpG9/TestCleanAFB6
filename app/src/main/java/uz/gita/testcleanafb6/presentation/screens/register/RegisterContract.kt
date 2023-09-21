@@ -1,22 +1,24 @@
-package uz.gita.testcleanafb6.presentation.screens.login
+package uz.gita.testcleanafb6.presentation.screens.register
 
 import kotlinx.coroutines.flow.StateFlow
 
-interface LoginContract {
+interface RegisterContract {
     data class UiState(
         val buttonState: Boolean = false,
         val progress: Boolean = false,
         val showPassword: Boolean = false,
         val errorMessage: String = "",
         val name: String = "",
-        val password: String = ""
+        val password: String = "",
+        val confirmPassword: String = ""
     )
 
     interface Intent {
         data class EnteringName(val name: String) : Intent
         data class EnteringPassword(val password: String) : Intent
-        object Login : Intent
-        object MoveToRegister : Intent
+        data class EnteringConfirmPassword(val password: String) : Intent
+        object Register : Intent
+        object MoveToBack:Intent
 
         object ClickPasswordEye : Intent
     }

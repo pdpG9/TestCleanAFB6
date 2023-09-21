@@ -1,4 +1,4 @@
-package uz.gita.testcleanafb6.presentation.screens.login
+package uz.gita.testcleanafb6.presentation.screens.register
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -34,16 +34,15 @@ import uz.gita.testcleanafb6.presentation.components.CustomButton
 import uz.gita.testcleanafb6.presentation.components.EditTextField
 import uz.gita.testcleanafb6.presentation.components.GetVerticalSpaceLarge
 import uz.gita.testcleanafb6.presentation.components.GetVerticalSpaceSmall
+import uz.gita.testcleanafb6.presentation.screens.login.LoginScreenContent
 import uz.gita.testcleanafb6.ui.theme.AppConfiguration
 import uz.gita.testcleanafb6.ui.theme.BaseColor
 
-class LoginScreen : AndroidScreen() {
+class RegisterScreen : AndroidScreen() {
     @Composable
     override fun Content() {
-        Log.d("TTT", "Content: ")
-        val vm: LoginContract.ViewModel = getViewModel<LoginViewModel>()
-
-        LoginScreenContent(
+        val vm: RegisterContract.ViewModel = getViewModel<RegisterViewModel>()
+        RegisterScreenContent(
             uiState = vm.uiState.collectAsState(),
             onEventDispatcher = vm::onEventDispatcher
         )
@@ -52,9 +51,9 @@ class LoginScreen : AndroidScreen() {
 }
 
 @Composable
-fun LoginScreenContent(
-    uiState: State<LoginContract.UiState>,
-    onEventDispatcher: (LoginContract.Intent) -> Unit
+fun RegisterScreenContent(
+    uiState: State<RegisterContract.UiState>,
+    onEventDispatcher: (RegisterContract.Intent) -> Unit
 ) {
     AppConfiguration.statusBarColor.value = BaseColor.toArgb()
     Column(
@@ -64,7 +63,7 @@ fun LoginScreenContent(
     ) {
         GetVerticalSpaceLarge()
         Text(
-            text = "Login",
+            text = "Register",
             style = MaterialTheme.typography.displayLarge.copy(color = BaseColor),
             modifier = Modifier.align(CenterHorizontally)
         )
@@ -73,7 +72,7 @@ fun LoginScreenContent(
             value = uiState.value.name,
             trailIcon = {},
             paddingHorizontal = 16.dp,
-            onValueChanged = { onEventDispatcher.invoke(LoginContract.Intent.EnteringName(it)) }
+            onValueChanged = { onEventDispatcher.invoke(RegisterContract.Intent.EnteringName(it)) }
         )
         GetVerticalSpaceSmall()
         EditTextField(
@@ -84,18 +83,36 @@ fun LoginScreenContent(
                     painter = painterResource(id = if (uiState.value.showPassword) R.drawable.ic_eye else R.drawable.ic_remove_eye),
                     contentDescription = "Password show",
                     modifier = Modifier.clickable {
-                        onEventDispatcher.invoke(LoginContract.Intent.ClickPasswordEye)
+                        onEventDispatcher.invoke(RegisterContract.Intent.ClickPasswordEye)
                     }
                 )
             },
             visualTransformation = if (uiState.value.showPassword) VisualTransformation.None else PasswordVisualTransformation(),
             paddingHorizontal = 16.dp,
-            onValueChanged = { onEventDispatcher.invoke(LoginContract.Intent.EnteringPassword(it)) },
+            onValueChanged = { onEventDispatcher.invoke(RegisterContract.Intent.EnteringPassword(it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        )
+        GetVerticalSpaceSmall()
+        EditTextField(
+            labelText = "Confirm Password",
+            value = uiState.value.confirmPassword,
+            trailIcon = {
+                Icon(
+                    painter = painterResource(id = if (uiState.value.showPassword) R.drawable.ic_eye else R.drawable.ic_remove_eye),
+                    contentDescription = "Password show",
+                    modifier = Modifier.clickable {
+                        onEventDispatcher.invoke(RegisterContract.Intent.ClickPasswordEye)
+                    }
+                )
+            },
+            visualTransformation = if (uiState.value.showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+            paddingHorizontal = 16.dp,
+            onValueChanged = { onEventDispatcher.invoke(RegisterContract.Intent.EnteringConfirmPassword(it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         GetVerticalSpaceSmall()
         CustomButton(
-            text = "Login", buttonState = uiState.value.buttonState,
+            text = "Register", buttonState = uiState.value.buttonState,
             horizontalPadding = 16.dp,
             progressAlpha = if (uiState.value.progress) 1f else 0f
         ) {
@@ -108,12 +125,12 @@ fun LoginScreenContent(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Don`t have an account? ",
+                text = "Do you have an account? ",
                 style = MaterialTheme.typography.labelSmall
             )
-            Text(text = "Register",
+            Text(text = "Login",
                 style = MaterialTheme.typography.labelSmall.copy(color = Color.Blue),
-                modifier = Modifier.clickable { onEventDispatcher.invoke(LoginContract.Intent.MoveToRegister) })
+                modifier = Modifier.clickable { onEventDispatcher.invoke(RegisterContract.Intent.MoveToBack) })
         }
 
     }
@@ -123,8 +140,8 @@ fun LoginScreenContent(
 @SuppressLint("UnrememberedMutableState")
 @Composable
 @Preview(showBackground = true)
-fun LoginScreenPrev() {
-    LoginScreenContent(mutableStateOf(LoginContract.UiState())) {
+fun RegisterScreenPrev() {
+    RegisterScreenContent(mutableStateOf(RegisterContract.UiState())) {
 
     }
 }

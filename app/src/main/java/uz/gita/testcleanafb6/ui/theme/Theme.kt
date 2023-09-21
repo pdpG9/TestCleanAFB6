@@ -16,12 +16,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import org.koin.androidx.compose.get
-import org.koin.androidx.compose.getKoin
-import org.koin.androidx.compose.inject
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import uz.gita.testcleanafb6.data.local.pref.MySharedPref
+import javax.inject.Inject
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -44,17 +40,8 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Color(0xFF1C1B1F),
     */
 )
-class AppConfiguration:KoinComponent{
-    private val myPref:MySharedPref by inject()
-
-    val statusBarColor
-    get() = mutableStateOf(myPref.getStatusColor())
-
-    fun setStatusBarColor(color:Int){
-        myPref.saveStatusColor(color)
-    }
-
-
+object AppConfiguration {
+    var statusBarColor = mutableStateOf(Color.Black.toArgb())
 }
 
 @Composable
@@ -77,7 +64,7 @@ fun TestCleanAFB6Theme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = AppConfiguration().statusBarColor.value
+            window.statusBarColor = AppConfiguration.statusBarColor.value
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }

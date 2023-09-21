@@ -27,7 +27,7 @@ class SplashScreen : AndroidScreen() {
 
 @Composable
 fun SplashScreenContent() {
-    AppConfiguration().setStatusBarColor(Color.Yellow.toArgb())
+    AppConfiguration.statusBarColor.value = Color.Yellow.toArgb()
     Box(
         modifier = Modifier
             .fillMaxSize()

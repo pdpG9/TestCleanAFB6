@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import uz.gita.testcleanafb6.ui.theme.BaseColor
 import uz.gita.testcleanafb6.ui.theme.TextFieldColor
@@ -35,10 +36,11 @@ fun EditTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     trailIcon :@Composable ()->Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-    onValueChanged: (String) -> Unit
+    onValueChanged: (String) -> Unit,
+    paddingHorizontal: Dp = 0.dp
 ) {
     TextField(
-        modifier = Modifier.padding(vertical = 8.dp)
+        modifier = Modifier.padding(vertical = 8.dp, horizontal = paddingHorizontal)
             .height(56.dp)
             .fillMaxWidth(),
         placeholder = { Text(text = labelText) },
@@ -66,7 +68,8 @@ fun CustomButton(
     text: String,
     buttonState: Boolean,
     progressAlpha: Float,
-    block: () -> Unit
+    horizontalPadding:Dp = 0.dp,
+    block: () -> Unit,
 ) {
     Button(
         onClick = { block.invoke() },
@@ -77,7 +80,8 @@ fun CustomButton(
         ),
         shape = RoundedCornerShape(12.dp), modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .padding(horizontal = horizontalPadding)
+            .height(56.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.CenterEnd) {
             Text(modifier = Modifier.fillMaxWidth(), text = text, style = MaterialTheme.typography.labelMedium)
