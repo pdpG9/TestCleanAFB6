@@ -4,10 +4,14 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import uz.gita.testcleanafb6.presentation.screens.home.HomeDirection
+import uz.gita.testcleanafb6.presentation.screens.home.HomeDirectionImp
 import uz.gita.testcleanafb6.presentation.screens.login.LoginDirection
 import uz.gita.testcleanafb6.presentation.screens.login.LoginDirectionImp
 import uz.gita.testcleanafb6.presentation.screens.register.RegisterDirection
 import uz.gita.testcleanafb6.presentation.screens.register.RegisterDirectionImp
+import uz.gita.testcleanafb6.presentation.screens.splesh.SplashDirection
+import uz.gita.testcleanafb6.presentation.screens.splesh.SplashDirectionImp
 import javax.inject.Singleton
 
 @Module
@@ -18,4 +22,8 @@ interface DirectionModule {
     fun bindLoginDirection(imp: LoginDirectionImp): LoginDirection
     @Binds
     fun bindRegisterDirection(imp: RegisterDirectionImp):RegisterDirection
+    @Binds
+    fun bindSplashDirection(imp: SplashDirectionImp): SplashDirection
+    @Binds
+    fun bindHomeDirection(imp: HomeDirectionImp): HomeDirection
 }

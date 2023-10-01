@@ -15,12 +15,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.androidx.AndroidScreen
+import cafe.adriel.voyager.hilt.getViewModel
 import uz.gita.testcleanafb6.ui.theme.AppConfiguration
 import uz.gita.testcleanafb6.ui.theme.TestCleanAFB6Theme
 
 class SplashScreen : AndroidScreen() {
     @Composable
     override fun Content() {
+        getViewModel<SplashViewModelImp>()
         SplashScreenContent()
     }
 }

@@ -1,6 +1,6 @@
 package uz.gita.testcleanafb6.data.network.response
 
 data class UpdateContactResponse(
-    val `data`: DataX,
+    val `data`: Data,
     val message: String
 )

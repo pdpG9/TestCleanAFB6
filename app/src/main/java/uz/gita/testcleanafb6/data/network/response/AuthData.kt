@@ -1,7 +1,6 @@
 package uz.gita.testcleanafb6.data.network.response
 
-data class DataX(
-    val id: Int,
+data class AuthData(
     val name: String,
-    val phone: String
+    val token: String
 )

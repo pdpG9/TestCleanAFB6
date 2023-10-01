@@ -2,6 +2,7 @@ package uz.gita.testcleanafb6.presentation.screens.login
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -42,6 +44,14 @@ class LoginScreen : AndroidScreen() {
     override fun Content() {
         Log.d("TTT", "Content: ")
         val vm: LoginContract.ViewModel = getViewModel<LoginViewModel>()
+        val sideEffect = vm.sideEffect.collectAsState()
+
+         when(sideEffect.value){
+             LoginContract.SideEffect.Init->{}
+             is LoginContract.SideEffect.ShowToast->{
+                 Toast.makeText(LocalContext.current,(sideEffect.value as LoginContract.SideEffect.ShowToast).message, Toast.LENGTH_SHORT).show()
+             }
+         }
 
         LoginScreenContent(
             uiState = vm.uiState.collectAsState(),
@@ -98,9 +108,7 @@ fun LoginScreenContent(
             text = "Login", buttonState = uiState.value.buttonState,
             horizontalPadding = 16.dp,
             progressAlpha = if (uiState.value.progress) 1f else 0f
-        ) {
-
-        }
+        ) { onEventDispatcher(LoginContract.Intent.Login) }
         GetVerticalSpaceSmall()
         Row(
             modifier = Modifier

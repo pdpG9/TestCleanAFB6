@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import uz.gita.testcleanafb6.presentation.navigator.NavigationHandler
 import uz.gita.testcleanafb6.presentation.screens.login.LoginScreen
+import uz.gita.testcleanafb6.presentation.screens.splesh.SplashScreen
 import uz.gita.testcleanafb6.ui.theme.TestCleanAFB6Theme
 import javax.inject.Inject
 
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TestCleanAFB6Theme {
-                Navigator(screen = LoginScreen()) { navigator ->
+                Navigator(screen = SplashScreen()) { navigator ->
                     LaunchedEffect(key1 = navigator) {
                         navigationHandler.navigationFlow
                             .onEach { it(navigator) }
