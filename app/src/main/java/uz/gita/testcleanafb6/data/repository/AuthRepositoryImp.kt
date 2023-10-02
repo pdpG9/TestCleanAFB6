@@ -20,7 +20,6 @@ class AuthRepositoryImp @Inject constructor(
     override fun login(name: String, password: String): Flow<AuthResponseParam> = flow {
         val response = api.login(AuthRequest(name, password))
 
-            Log.d("TTT", "message:${response.message()} ")
             Log.d("TTT", "response:${response} ")
             Log.d("TTT", "errorBody:${response.errorBody()} ")
         if (response.isSuccessful && response.body() != null) {

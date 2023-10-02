@@ -1,6 +1,8 @@
 package uz.gita.testcleanafb6.domain.models
+
+import uz.gita.testcleanafb6.data.network.response.AddContactData
+
 data class ContactParam(
-    val id: Int,
-    val name: String,
-    val phone: String
+    val isSuccess: Boolean,
+    val data: AddContactData
 )
