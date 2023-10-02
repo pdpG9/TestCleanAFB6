@@ -25,13 +25,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import uz.gita.testcleanafb6.R
-import uz.gita.testcleanafb6.domain.models.ContactParam
+import uz.gita.testcleanafb6.data.network.response.AddContactData
 
 @Composable
 fun ContactItem(
-    data: ContactParam,
-    onClickSettings: (ContactParam) -> Unit,
-    onClickEdit: (ContactParam) -> Unit
+    data: AddContactData,
+    onClickSettings: (AddContactData) -> Unit,
+    onClickEdit: (AddContactData) -> Unit
 ) {
 
     Box(modifier = Modifier
@@ -100,5 +100,5 @@ fun ContactItem(
 @Composable
 @Preview(showBackground = true)
 fun ContactItemPreview() {
-    ContactItem(data = ContactParam(1, "", ""), onClickSettings = { ContactParam(1, "", "") }, onClickEdit = { ContactParam(1, "", "") })
+    ContactItem(data = AddContactData(1, "", ""), onClickSettings = { AddContactData(1, "", "") }, onClickEdit = { AddContactData(1, "", "") })
 }
