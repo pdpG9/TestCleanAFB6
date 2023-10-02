@@ -14,7 +14,7 @@ class SplashViewModelImp @Inject constructor(pref: MySharedPref, direction: Spla
 
     init {
         viewModelScope.launch {
-            delay(800)
+            delay(2000)
             if (pref.getToken().isNotEmpty())
                 direction.moveToMainScreen()
             else direction.moveToLoginScreen()

@@ -116,4 +116,7 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
 
+    //LottieAnim
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
+
 }

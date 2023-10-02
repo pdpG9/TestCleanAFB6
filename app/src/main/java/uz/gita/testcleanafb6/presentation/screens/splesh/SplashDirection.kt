@@ -14,7 +14,7 @@ interface SplashDirection {
 @Singleton
 class SplashDirectionImp @Inject constructor(private val appNavigator: AppNavigator):SplashDirection{
     override suspend fun moveToLoginScreen() {
-        appNavigator.navigateTo(LoginScreen())
+        appNavigator.replaceAll(LoginScreen())
     }
 
     override suspend fun moveToMainScreen() {

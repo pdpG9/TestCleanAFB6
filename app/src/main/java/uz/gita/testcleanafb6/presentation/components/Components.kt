@@ -1,5 +1,6 @@
 package uz.gita.testcleanafb6.presentation.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +23,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import uz.gita.testcleanafb6.ui.theme.BaseColor
@@ -34,33 +36,46 @@ fun EditTextField(
     labelText: String,
     value: String,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    trailIcon :@Composable ()->Unit,
+    trailIcon: @Composable () -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
     onValueChanged: (String) -> Unit,
-    paddingHorizontal: Dp = 0.dp
+    paddingHorizontal: Dp = 0.dp,
+    borderColor: Color = Color.Gray,
 ) {
     TextField(
-        modifier = Modifier.padding(vertical = 8.dp, horizontal = paddingHorizontal)
-            .height(56.dp)
-            .fillMaxWidth(),
+        modifier = Modifier
+            .padding(vertical = 12.dp, horizontal = paddingHorizontal)
+            .height(58.dp)
+            .fillMaxWidth()
+            .border(1.dp, borderColor, RoundedCornerShape(5.dp)),
         placeholder = { Text(text = labelText) },
         keyboardOptions = keyboardOptions,
         value = value,
         onValueChange = onValueChanged,
         colors = TextFieldDefaults.textFieldColors(
-            textColor = BaseColor,
             containerColor = TextFieldColor,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
+            focusedIndicatorColor = borderColor,
+            unfocusedIndicatorColor = borderColor,
             disabledLabelColor = Color.LightGray,
-            cursorColor = BaseColor
+            cursorColor = BaseColor,
         ),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(5.dp),
         singleLine = true,
         visualTransformation = visualTransformation,
         trailingIcon = trailIcon
 
+//        trailingIcon = {
+//            IconButton(onClick = onTrailingIconClick) {
+//                trailIcon()
+//            }
+//        },
+
     )
+}
+
+@Composable
+@Preview(showBackground = true)
+fun EditTextFieldPreview() {
 }
 
 @Composable
@@ -68,7 +83,8 @@ fun CustomButton(
     text: String,
     buttonState: Boolean,
     progressAlpha: Float,
-    horizontalPadding:Dp = 0.dp,
+    horizontalPadding: Dp = 0.dp,
+    verticalPadding: Dp = 0.dp,
     block: () -> Unit,
 ) {
     Button(
@@ -80,11 +96,15 @@ fun CustomButton(
         ),
         shape = RoundedCornerShape(12.dp), modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = horizontalPadding)
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding)
             .height(56.dp)
     ) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.CenterEnd) {
-            Text(modifier = Modifier.fillMaxWidth(), text = text, style = MaterialTheme.typography.labelMedium)
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = text,
+                style = MaterialTheme.typography.labelMedium
+            )
             CircularProgressIndicator(
                 color = Color.White,
                 modifier = Modifier
