@@ -3,9 +3,11 @@ package uz.gita.testcleanafb6.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import uz.gita.testcleanafb6.data.mappers.toContactParam
+import uz.gita.testcleanafb6.data.mappers.toDeleteContactParam
 import uz.gita.testcleanafb6.data.network.api.ContactApi
 import uz.gita.testcleanafb6.data.network.request.AddContactRequest
 import uz.gita.testcleanafb6.domain.models.ContactParam
+import uz.gita.testcleanafb6.domain.models.DeleteContactParam
 import uz.gita.testcleanafb6.domain.repository.ContactRepository
 import javax.inject.Inject
 
@@ -18,6 +20,16 @@ class ContactRepository @Inject constructor(
             emit(response.body()!!.toContactParam(true))
         } else {
             emit(response.body()!!.toContactParam(false))
+        }
+    }
+
+    override fun deleteContact(id: Int): Flow<DeleteContactParam> = flow {
+        val response = api.deleteContact(id)
+        if (response.isSuccessful && response.body() != null){
+            emit(response.body()!!.toDeleteContactParam(true))
+        }else{
+            emit(response.body()!!.toDeleteContactParam(false))
+
         }
     }
 
