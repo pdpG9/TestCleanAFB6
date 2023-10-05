@@ -1,7 +1,6 @@
 package uz.gita.testcleanafb6.di
 
 import android.content.Context
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +36,6 @@ class NetworkModule {
 
     @[Singleton Provides]
     fun provideClient(@ApplicationContext context: Context): OkHttpClient =
-        OkHttpClient.Builder().addInterceptor(ChuckerInterceptor.Builder(context).build()).build()
+        OkHttpClient.Builder().build()
 
 }
