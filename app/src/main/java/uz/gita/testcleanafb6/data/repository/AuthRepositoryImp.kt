@@ -1,5 +1,6 @@
 package uz.gita.testcleanafb6.data.repository
 
+import android.annotation.SuppressLint
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,6 +18,7 @@ class AuthRepositoryImp @Inject constructor(
     private val api: AuthApi,
     private val pref: MySharedPref
 ) : AuthRepository {
+    @SuppressLint("SuspiciousIndentation")
     override fun login(name: String, password: String): Flow<AuthResponseParam> = flow {
         val response = api.login(AuthRequest(name, password))
         if (response.isSuccessful && response.body() != null) {

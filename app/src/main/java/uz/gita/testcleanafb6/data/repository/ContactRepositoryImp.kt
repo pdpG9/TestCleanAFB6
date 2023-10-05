@@ -14,7 +14,7 @@ import uz.gita.testcleanafb6.domain.models.UpdateContactParam
 import uz.gita.testcleanafb6.domain.repository.ContactRepository
 import javax.inject.Inject
 
-class ContactRepository @Inject constructor(
+class ContactRepositoryImp @Inject constructor(
     private val api: ContactApi,
 ) : ContactRepository {
     override fun addContact(name: String, phone: String): Flow<ContactParam> = flow {

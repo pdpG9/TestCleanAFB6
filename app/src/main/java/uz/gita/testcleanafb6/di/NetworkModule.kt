@@ -14,7 +14,7 @@ import uz.gita.testcleanafb6.data.network.api.AuthApi
 import uz.gita.testcleanafb6.data.network.api.ContactApi
 import javax.inject.Singleton
 
-const val BASE_URL = "https://f8c8-195-158-16-140.ngrok.io"
+const val BASE_URL = " https://212e-195-158-16-140.ngrok-free.app"
 
 @Module
 @InstallIn(SingletonComponent::class)
