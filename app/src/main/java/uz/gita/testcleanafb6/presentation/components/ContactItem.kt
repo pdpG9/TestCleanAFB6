@@ -49,7 +49,8 @@ fun ContactItem(
                     painter = painterResource(id = R.drawable.ic_user), contentDescription = "profile", modifier = Modifier
                         .width(40.dp)
                         .height(40.dp)
-                        .clip(shape = CircleShape)
+                        .clip(shape = CircleShape) ,
+                    tint = Color(0xffBDBDBD)
                 )
                 Spacer(modifier = Modifier.size(12.dp))
 
@@ -83,7 +84,8 @@ fun ContactItem(
                             contentDescription = "Settings",
                             modifier = Modifier
                                 .width(24.dp)
-                                .height(24.dp)
+                                .height(24.dp) ,
+                            tint = Color(0xffBDBDBD)
                         )
                     },
                 )
