@@ -19,9 +19,6 @@ class AuthRepositoryImp @Inject constructor(
 ) : AuthRepository {
     override fun login(name: String, password: String): Flow<AuthResponseParam> = flow {
         val response = api.login(AuthRequest(name, password))
-
-            Log.d("TTT", "response:${response} ")
-            Log.d("TTT", "errorBody:${response.errorBody()} ")
         if (response.isSuccessful && response.body() != null) {
             pref.saveUser(UserModel(name, password, "${response.body()?.data?.token}"))
             emit(response.body()!!.mapToAuthResponseParam(true))
@@ -47,5 +44,9 @@ class AuthRepositoryImp @Inject constructor(
         }else{
             emit(AuthResponseParam(false,response.body()!!.message))
         }
+    }
+
+    override fun unRegister(name: String, password: String): Flow<AuthResponseParam> = flow {
+
     }
 }
