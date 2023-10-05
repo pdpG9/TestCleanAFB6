@@ -95,9 +95,7 @@ fun HomeScreenContent(
                 )
             }
             LazyColumn {
-                items(uiState.value.contacts) {
 
-                }
             }
         }
         Column (
