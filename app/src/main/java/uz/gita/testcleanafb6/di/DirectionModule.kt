@@ -14,6 +14,8 @@ import uz.gita.testcleanafb6.presentation.screens.register.RegisterDirection
 import uz.gita.testcleanafb6.presentation.screens.register.RegisterDirectionImp
 import uz.gita.testcleanafb6.presentation.screens.splesh.SplashDirection
 import uz.gita.testcleanafb6.presentation.screens.splesh.SplashDirectionImp
+import uz.gita.testcleanafb6.presentation.screens.update.UpdateDirection
+import uz.gita.testcleanafb6.presentation.screens.update.UpdateDirectionImpl
 import javax.inject.Singleton
 
 @Module
@@ -31,4 +33,7 @@ interface DirectionModule {
 
     @Binds
     fun bindAddDirection(imp : AddDirectionImpl) : AddDirection
+
+    @Binds
+    fun bindUpdateDirection(impl : UpdateDirectionImpl) : UpdateDirection
 }

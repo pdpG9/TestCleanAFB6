@@ -38,6 +38,7 @@ import androidx.compose.ui.window.PopupProperties
 import uz.gita.testcleanafb6.R
 import uz.gita.testcleanafb6.data.network.response.AddContactData
 import uz.gita.testcleanafb6.domain.models.ContactParam
+import uz.gita.testcleanafb6.domain.models.CrudContactParam
 
 @Composable
 fun ContactItem(
@@ -116,5 +117,5 @@ fun ContactItem(
 @Composable
 @Preview(showBackground = true)
 fun ContactItemPreview() {
-    ContactItem(data = ContactParam(false, AddContactData(1, "","")), onClickSettings = { ContactParam(false, AddContactData(1, "","")) }, onClickEdit = { ContactParam(false, AddContactData(1, "","")) })
+    ContactItem(data = ContactParam(false, CrudContactParam(1, "","")), onClickSettings = { ContactParam(false, CrudContactParam(1, "","")) }, onClickEdit = { ContactParam(false, CrudContactParam(1, "","")) })
 }

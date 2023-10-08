@@ -2,8 +2,8 @@ package uz.gita.testcleanafb6.domain.usecase.imp
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import uz.gita.testcleanafb6.data.repository.ContactRepository
 import uz.gita.testcleanafb6.domain.models.DeleteContactParam
+import uz.gita.testcleanafb6.domain.repository.ContactRepository
 import uz.gita.testcleanafb6.domain.usecase.DeleteContactUseCase
 import javax.inject.Inject
 

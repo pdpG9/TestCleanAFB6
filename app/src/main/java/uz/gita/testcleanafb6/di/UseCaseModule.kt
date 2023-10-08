@@ -8,10 +8,12 @@ import uz.gita.testcleanafb6.domain.usecase.AddContactUseCase
 import uz.gita.testcleanafb6.domain.usecase.LogOutUseCase
 import uz.gita.testcleanafb6.domain.usecase.LoginUseCase
 import uz.gita.testcleanafb6.domain.usecase.RegisterUseCase
+import uz.gita.testcleanafb6.domain.usecase.UpdateContactUseCase
 import uz.gita.testcleanafb6.domain.usecase.imp.AddContactUseCaseImpl
 import uz.gita.testcleanafb6.domain.usecase.imp.LogOutUseCaseImp
 import uz.gita.testcleanafb6.domain.usecase.imp.LoginUseCaseImp
 import uz.gita.testcleanafb6.domain.usecase.imp.RegisterUseCaseImp
+import uz.gita.testcleanafb6.domain.usecase.imp.UpdateContactUseCaseImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -26,4 +28,7 @@ interface UseCaseModule {
 
     @Binds
     fun bindAddUseCase(imp: AddContactUseCaseImpl) : AddContactUseCase
+
+    @Binds
+    fun bindUpdateContactUseCase(impl : UpdateContactUseCaseImpl) : UpdateContactUseCase
 }
