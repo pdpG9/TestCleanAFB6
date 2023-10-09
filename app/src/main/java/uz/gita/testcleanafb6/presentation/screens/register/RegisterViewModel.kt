@@ -11,6 +11,7 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(private val direction: RegisterDirection) : ViewModel(),
     RegisterContract.ViewModel {
     override val uiState = MutableStateFlow<RegisterContract.UiState>(RegisterContract.UiState())
+    private var confirmPassword = ""
 
     override fun onEventDispatcher(intent: RegisterContract.Intent) {
         when (intent) {
@@ -30,14 +31,18 @@ class RegisterViewModel @Inject constructor(private val direction: RegisterDirec
 
             is RegisterContract.Intent.EnteringName -> {
                 reduce { it.copy(name = intent.name) }
+                reduce { it.copy(removeWordsButtonState = intent.name.isNotBlank()) }
             }
 
             is RegisterContract.Intent.EnteringPassword -> {
-                reduce { it.copy(password = intent.password) }
+                confirmPassword = intent.password
+                reduce { it.copy(password = confirmPassword) }
+                reduce { it.copy(checkLengthPassword = confirmPassword.length < 5) }
             }
 
             is RegisterContract.Intent.EnteringConfirmPassword -> {
                 reduce { it.copy(confirmPassword = intent.password) }
+                reduce { it.copy(isSameConfirmPassword = intent.password == confirmPassword) }
             }
         }
     }

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -110,18 +111,38 @@ fun RegisterScreenContent(
                     modifier = Modifier
                         .width(310.dp)
                         .height(58.dp) ,
-                    value = "",
-                    onValueChange = {} ,
-                    trailingIcon = {
-                        IconButton(onClick = {  }) {
-                            Icon(
-                                modifier = Modifier
-                                    .width(17.dp)
-                                    .height(17.dp),
-                                painter = painterResource(id = R.drawable.ic_delete_words_edit_screem),
-                                contentDescription = "delete word icon" ,
-                                tint = Color(0xFF8E8E93)
+                    value = uiState.value.name,
+                    placeholder = {
+                        Text(
+                            text = "Username" ,
+                            style = TextStyle(
+                                fontSize = 16.sp ,
+                                lineHeight = 24.sp ,
+                                fontFamily = FontFamily(listOf(Font(R.font.helvetica))) ,
+                                fontWeight = FontWeight.W400 ,
+                                color = Color(0x803C3C43)
                             )
+                        )
+                    },
+                    onValueChange = {
+                        onEventDispatcher.invoke(RegisterContract.Intent.EnteringName(it))
+                    } ,
+                    trailingIcon = {
+                        IconButton(onClick = {
+                            if(uiState.value.removeWordsButtonState) {
+                                onEventDispatcher.invoke(RegisterContract.Intent.EnteringName(""))
+                            }
+                        }) {
+                            if(uiState.value.removeWordsButtonState) {
+                                Icon(
+                                    modifier = Modifier
+                                        .width(17.dp)
+                                        .height(17.dp),
+                                    painter = painterResource(id = R.drawable.ic_delete_words_edit_screem),
+                                    contentDescription = "delete word icon" ,
+                                    tint = Color(0xFF8E8E93)
+                                )
+                            }
                         }
                     } ,
                     colors = OutlinedTextFieldDefaults.colors(
@@ -135,50 +156,104 @@ fun RegisterScreenContent(
                         .padding(top = 24.dp)
                         .width(310.dp)
                         .height(58.dp),
-                    value = "Password",
-                    onValueChange = {} ,
-                    trailingIcon = {
-                        IconButton(onClick = {  }) {
-                            Icon(
-                                modifier = Modifier
-                                    .width(17.dp)
-                                    .height(17.dp),
-                                painter = painterResource(id = R.drawable.ic_eye),
-                                contentDescription = "delete word icon" ,
-                                tint = Color(0xFF8E8E93)
+                    value = uiState.value.password,
+                    isError = uiState.value.checkLengthPassword,
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            onEventDispatcher.invoke(RegisterContract.Intent.AfterEnteringPassword)
+                        }
+                    ),
+                    singleLine = true,
+                    supportingText = {
+                        if (uiState.value.checkLengthPassword) {
+                            Text(
+                                modifier = Modifier.fillMaxSize(),
+                                text = "hello" ,
+                                color = MaterialTheme.colorScheme.error
                             )
+                        }
+                    },
+                    placeholder = {
+                        Text(
+                            text = "Password" ,
+                            style = TextStyle(
+                                fontSize = 16.sp ,
+                                lineHeight = 24.sp ,
+                                fontFamily = FontFamily(listOf(Font(R.font.helvetica))) ,
+                                fontWeight = FontWeight.W400 ,
+                                color = Color(0x803C3C43)
+                            )
+                        )
+                    },
+                    onValueChange = {
+                        onEventDispatcher.invoke(RegisterContract.Intent.EnteringPassword(it))
+                    } ,
+                    trailingIcon = {
+                        IconButton(onClick = {
+                            onEventDispatcher.invoke(RegisterContract.Intent.ClickPasswordEye)
+                        }) {
+                                Icon(
+                                    modifier = Modifier
+                                        .width(17.dp)
+                                        .height(17.dp),
+                                    painter = painterResource(if (uiState.value.showPassword) R.drawable.ic_eye else R.drawable.hide),
+                                    contentDescription = "delete word icon" ,
+                                    tint = Color(0xFF8E8E93)
+                                )
+
                         }
                     } ,
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color.LightGray ,
-                        unfocusedBorderColor = Color.LightGray
+                            focusedBorderColor = if(uiState.value.isSameConfirmPassword) Color.LightGray else Color.Red ,
+                            unfocusedBorderColor = if(uiState.value.isSameConfirmPassword) Color.LightGray else Color.Red
+
                     ) ,
-                    shape = RoundedCornerShape(5.dp)
+                    shape = RoundedCornerShape(5.dp) ,
+                    visualTransformation = if(uiState.value.showPassword) VisualTransformation.None
+                    else
+                        PasswordVisualTransformation()
                 )
                 OutlinedTextField(
                     modifier = Modifier
                         .padding(top = 24.dp)
                         .width(310.dp)
                         .height(58.dp),
-                    value = "Confirm Password",
-                    onValueChange = {} ,
+                    value = uiState.value.confirmPassword,
+                    placeholder = {
+                        Text(
+                            text = "Confirm Password" ,
+                            style = TextStyle(
+                                fontSize = 16.sp ,
+                                lineHeight = 24.sp ,
+                                fontFamily = FontFamily(listOf(Font(R.font.helvetica))) ,
+                                fontWeight = FontWeight.W400 ,
+                                color = Color(0x803C3C43)
+                            )
+                        )
+                    },
+                    onValueChange = {
+                        onEventDispatcher.invoke(RegisterContract.Intent.EnteringConfirmPassword(it))
+                    } ,
                     trailingIcon = {
                         IconButton(onClick = {  }) {
                             Icon(
                                 modifier = Modifier
                                     .width(17.dp)
                                     .height(17.dp),
-                                painter = painterResource(id = R.drawable.ic_eye),
+                                painter = painterResource(if (uiState.value.showPassword) R.drawable.ic_eye else R.drawable.hide),
                                 contentDescription = "delete word icon" ,
                                 tint = Color(0xFF8E8E93)
                             )
                         }
                     } ,
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color.LightGray ,
-                        unfocusedBorderColor = Color.LightGray
+                        focusedBorderColor = if(uiState.value.isSameConfirmPassword) Color.LightGray else Color.Red ,
+                        unfocusedBorderColor = if(uiState.value.isSameConfirmPassword) Color.LightGray else Color.Red
                     ) ,
-                    shape = RoundedCornerShape(5.dp)
+                    shape = RoundedCornerShape(5.dp) ,
+                    visualTransformation = if(uiState.value.showPassword) VisualTransformation.None
+                    else
+                        PasswordVisualTransformation()
                 )
                 Button(
                     modifier = Modifier
