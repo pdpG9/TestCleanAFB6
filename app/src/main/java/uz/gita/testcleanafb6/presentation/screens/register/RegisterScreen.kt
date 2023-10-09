@@ -157,6 +157,7 @@ fun RegisterScreenContent(
                         .width(310.dp)
                         .height(58.dp),
                     value = uiState.value.password,
+                    //1
                     isError = uiState.value.checkLengthPassword,
                     keyboardActions = KeyboardActions(
                         onDone = {
