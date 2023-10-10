@@ -19,7 +19,7 @@ data class Product(
     val out_price: Int,
     val rate_id: String,
     val string: String,
-    val title: Title,
+    val title: TitleX,
     val to_time: String,
     val type: String
 )
