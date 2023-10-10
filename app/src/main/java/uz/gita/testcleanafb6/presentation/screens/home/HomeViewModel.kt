@@ -26,6 +26,11 @@ class HomeViewModel @Inject constructor(
                     direction.logout()
                 }
             }
+            HomeContract.Intent.MoveToAddScreen -> {
+                viewModelScope.launch {
+                    direction.moveToAddScreen()
+                }
+            }
         }
 
     }

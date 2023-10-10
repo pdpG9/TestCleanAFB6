@@ -3,13 +3,16 @@ package uz.gita.testcleanafb6.presentation.screens.login
 import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,12 +50,16 @@ class LoginScreen : AndroidScreen() {
         val vm: LoginContract.ViewModel = getViewModel<LoginViewModel>()
         val sideEffect = vm.sideEffect.collectAsState()
 
-         when(sideEffect.value){
-             LoginContract.SideEffect.Init->{}
-             is LoginContract.SideEffect.ShowToast->{
-                 Toast.makeText(LocalContext.current,(sideEffect.value as LoginContract.SideEffect.ShowToast).message, Toast.LENGTH_SHORT).show()
-             }
-         }
+        when (sideEffect.value) {
+            LoginContract.SideEffect.Init -> {}
+            is LoginContract.SideEffect.ShowToast -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    (sideEffect.value as LoginContract.SideEffect.ShowToast).message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
 
         LoginScreenContent(
             uiState = vm.uiState.collectAsState(),
@@ -64,38 +72,47 @@ class LoginScreen : AndroidScreen() {
 @Composable
 fun LoginScreenContent(
     uiState: State<LoginContract.UiState>,
-    onEventDispatcher: (LoginContract.Intent) -> Unit
+    onEventDispatcher: (LoginContract.Intent) -> Unit,
 ) {
     AppConfiguration.statusBarColor.value = BaseColor.toArgb()
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .fillMaxHeight()
             .background(Color.White)
     ) {
         GetVerticalSpaceLarge()
-        Text(
-            text = "Login",
-            style = MaterialTheme.typography.displayLarge.copy(color = BaseColor),
-            modifier = Modifier.align(CenterHorizontally)
+        Image(
+            painter = painterResource(id = R.drawable.phone_icon),
+            contentDescription = "",
+            modifier = Modifier
+                .padding(top = 119.dp)
+                .width(188.dp)
+                .height(174.dp)
+                .align(CenterHorizontally)
         )
         GetVerticalSpaceLarge()
-        EditTextField(labelText = "Name",
+
+        EditTextField(labelText = "Username",
             value = uiState.value.name,
-            trailIcon = {},
             paddingHorizontal = 16.dp,
+            trailIcon = { },
             onValueChanged = { onEventDispatcher.invoke(LoginContract.Intent.EnteringName(it)) }
         )
+
         GetVerticalSpaceSmall()
         EditTextField(
             labelText = "Password",
             value = uiState.value.password,
             trailIcon = {
                 Icon(
-                    painter = painterResource(id = if (uiState.value.showPassword) R.drawable.ic_eye else R.drawable.ic_remove_eye),
+                    painter = painterResource(id = if (uiState.value.showPassword) R.drawable.view else R.drawable.hide),
                     contentDescription = "Password show",
-                    modifier = Modifier.clickable {
-                        onEventDispatcher.invoke(LoginContract.Intent.ClickPasswordEye)
-                    }
+                    modifier = Modifier
+                        .clickable {
+                            onEventDispatcher.invoke(LoginContract.Intent.ClickPasswordEye)
+                        }
+                        .padding(15.dp)
                 )
             },
             visualTransformation = if (uiState.value.showPassword) VisualTransformation.None else PasswordVisualTransformation(),
@@ -105,22 +122,28 @@ fun LoginScreenContent(
         )
         GetVerticalSpaceSmall()
         CustomButton(
-            text = "Login", buttonState = uiState.value.buttonState,
+            text = "Login",
+            buttonState = uiState.value.buttonState,
             horizontalPadding = 16.dp,
-            progressAlpha = if (uiState.value.progress) 1f else 0f
-        ) { onEventDispatcher(LoginContract.Intent.Login) }
-        GetVerticalSpaceSmall()
+            verticalPadding = 10.dp,
+            progressAlpha = if (uiState.value.progress) 1f else 0f,
+        )
+        {
+            onEventDispatcher(LoginContract.Intent.Login)
+        }
+
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp, vertical = 20.dp)
+                .align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = "Don`t have an account? ",
-                style = MaterialTheme.typography.labelSmall
+                text = "Don’t have an account yet? ",
+                style = MaterialTheme.typography.labelSmall,
+                color = Color.DarkGray
             )
-            Text(text = "Register",
-                style = MaterialTheme.typography.labelSmall.copy(color = Color.Blue),
+            Text(text = "Sign up here",
+                style = MaterialTheme.typography.labelSmall.copy(color = Color.DarkGray),
                 modifier = Modifier.clickable { onEventDispatcher.invoke(LoginContract.Intent.MoveToRegister) })
         }
 
@@ -132,7 +155,5 @@ fun LoginScreenContent(
 @Composable
 @Preview(showBackground = true)
 fun LoginScreenPrev() {
-    LoginScreenContent(mutableStateOf(LoginContract.UiState())) {
-
-    }
+    LoginScreenContent(mutableStateOf(LoginContract.UiState())) {}
 }

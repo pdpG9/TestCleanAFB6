@@ -10,7 +10,10 @@ interface RegisterContract {
         val errorMessage: String = "",
         val name: String = "",
         val password: String = "",
-        val confirmPassword: String = ""
+        val confirmPassword: String = "" ,
+        val removeWordsButtonState : Boolean = false ,
+        val isSameConfirmPassword : Boolean = true ,
+        val checkLengthPassword : Boolean = false
     )
 
     interface Intent {
@@ -19,7 +22,7 @@ interface RegisterContract {
         data class EnteringConfirmPassword(val password: String) : Intent
         object Register : Intent
         object MoveToBack:Intent
-
+        object AfterEnteringPassword : Intent
         object ClickPasswordEye : Intent
     }
 

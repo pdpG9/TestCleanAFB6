@@ -1,6 +1,7 @@
 package uz.gita.testcleanafb6.presentation.screens.home
 
 import uz.gita.testcleanafb6.presentation.navigator.AppNavigator
+import uz.gita.testcleanafb6.presentation.screens.add.AddScreen
 import uz.gita.testcleanafb6.presentation.screens.home.HomeScreen
 import uz.gita.testcleanafb6.presentation.screens.login.LoginDirection
 import uz.gita.testcleanafb6.presentation.screens.login.LoginScreen
@@ -17,7 +18,7 @@ interface HomeDirection {
 class HomeDirectionImp @Inject constructor(private val appNavigator: AppNavigator):
     HomeDirection {
     override suspend fun moveToAddScreen() {
-
+        appNavigator.navigateTo(AddScreen())
     }
 
     override suspend fun moveToUpdateScreen() {
