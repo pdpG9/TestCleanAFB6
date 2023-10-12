@@ -31,6 +31,8 @@ class MainActivity : ComponentActivity() {
                     }
                     CurrentScreen()
                     ///yangi code bu
+
+                    //second code
                 }
             }
         }
