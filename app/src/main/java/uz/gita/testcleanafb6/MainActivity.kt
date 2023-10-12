@@ -33,6 +33,8 @@ class MainActivity : ComponentActivity() {
                     ///yangi code bu
 
                     //second code
+
+                    //third code
                 }
             }
         }
