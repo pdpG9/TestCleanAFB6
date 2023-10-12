@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
                             .collect()
                     }
                     CurrentScreen()
+                    ///yangi code bu
                 }
             }
         }
